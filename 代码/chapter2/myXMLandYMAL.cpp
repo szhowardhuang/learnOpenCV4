@@ -7,53 +7,53 @@ using namespace cv;
 
 int main(int argc, char** argv)
 {
-	system("color F0");  //ĞŞ¸ÄÔËĞĞ³ÌĞò±³¾°ºÍÎÄ×ÖÑÕÉ«
-	//string fileName = "datas.xml";  //ÎÄ¼şµÄÃû³Æ
-	string fileName = "datas.yaml";  //ÎÄ¼şµÄÃû³Æ
-	//ÒÔĞ´ÈëµÄÄ£Ê½´ò¿ªÎÄ¼ş
+	system("color F0");  //ä¿®æ”¹è¿è¡Œç¨‹åºèƒŒæ™¯å’Œæ–‡å­—é¢œè‰²
+	//string fileName = "datas.xml";  //æ–‡ä»¶çš„åç§°
+	string fileName = "datas.yaml";  //æ–‡ä»¶çš„åç§°
+	//ä»¥å†™å…¥çš„æ¨¡å¼æ‰“å¼€æ–‡ä»¶
 	cv::FileStorage fwrite(fileName, cv::FileStorage::WRITE);
 	
-	//´æÈë¾ØÕóMatÀàĞÍµÄÊı¾İ
+	//å­˜å…¥çŸ©é˜µMatç±»å‹çš„æ•°æ®
 	Mat mat = Mat::eye(3, 3, CV_8U);
-	fwrite.write("mat", mat);  //Ê¹ÓÃwrite()º¯ÊıĞ´ÈëÊı¾İ
-	//´æÈë¸¡µãĞÍÊı¾İ£¬½ÚµãÃû³ÆÎªx
+	fwrite.write("mat", mat);  //ä½¿ç”¨write()å‡½æ•°å†™å…¥æ•°æ®
+	//å­˜å…¥æµ®ç‚¹å‹æ•°æ®ï¼ŒèŠ‚ç‚¹åç§°ä¸ºx
 	float x = 100;
 	fwrite << "x" << x;
-	//´æÈë×Ö·û´®ĞÍÊı¾İ£¬½ÚµãÃû³ÆÎªstr
+	//å­˜å…¥å­—ç¬¦ä¸²å‹æ•°æ®ï¼ŒèŠ‚ç‚¹åç§°ä¸ºstr
 	String str = "Learn OpenCV 4";
 	fwrite << "str" << str;
-	//´æÈëÊı×é,½ÚµãÃû³ÆÎªnumber_array
+	//å­˜å…¥æ•°ç»„,èŠ‚ç‚¹åç§°ä¸ºnumber_array
 	fwrite << "number_array" << "[" <<4<<5<<6<< "]";
-	//´æÈë¶ànode½ÚµãÊı¾İ,Ö÷Ãû³ÆÎªmulti_nodes
+	//å­˜å…¥å¤šnodeèŠ‚ç‚¹æ•°æ®,ä¸»åç§°ä¸ºmulti_nodes
 	fwrite << "multi_nodes" << "{" << "month" << 8 << "day" << 28 << "year"
 		<< 2019 << "time" << "[" << 0 << 1 << 2 << 3 << "]" << "}";
 
-	//¹Ø±ÕÎÄ¼ş
+	//å…³é—­æ–‡ä»¶
 	fwrite.release();
 
-	//ÒÔ¶ÁÈ¡µÄÄ£Ê½´ò¿ªÎÄ¼ş
+	//ä»¥è¯»å–çš„æ¨¡å¼æ‰“å¼€æ–‡ä»¶
 	cv::FileStorage fread(fileName, cv::FileStorage::READ);
-	//ÅĞ¶ÏÊÇ·ñ³É¹¦´ò¿ªÎÄ¼ş
+	//åˆ¤æ–­æ˜¯å¦æˆåŠŸæ‰“å¼€æ–‡ä»¶
 	if (!fread.isOpened())
 	{
-		cout << "´ò¿ªÎÄ¼şÊ§°Ü£¬ÇëÈ·ÈÏÎÄ¼şÃû³ÆÊÇ·ñÕıÈ·£¡" << endl;
+		cout << "æ‰“å¼€æ–‡ä»¶å¤±è´¥ï¼Œè¯·ç¡®è®¤æ–‡ä»¶åç§°æ˜¯å¦æ­£ç¡®ï¼" << endl;
 		return -1;
 	}
 
-	//¶ÁÈ¡ÎÄ¼şÖĞµÄÊı¾İ
+	//è¯»å–æ–‡ä»¶ä¸­çš„æ•°æ®
 	float xRead;
-	fread["x"] >> xRead;  //¶ÁÈ¡¸¡µãĞÍÊı¾İ
+	fread["x"] >> xRead;  //è¯»å–æµ®ç‚¹å‹æ•°æ®
 	cout << "x=" << xRead << endl;
 
-	//¶ÁÈ¡×Ö·û´®Êı¾İ
+	//è¯»å–å­—ç¬¦ä¸²æ•°æ®
 	string strRead;
 	fread["str"] >> strRead;
 	cout << "str=" << strRead << endl;
 
-	//¶ÁÈ¡º¬¶à¸öÊı¾İµÄnumber_array½Úµã
+	//è¯»å–å«å¤šä¸ªæ•°æ®çš„number_arrayèŠ‚ç‚¹
 	FileNode fileNode = fread["number_array"];
 	cout << "number_array=[";
-	//Ñ­»·±éÀúÃ¿¸öÊı¾İ
+	//å¾ªç¯éå†æ¯ä¸ªæ•°æ®
 	for (FileNodeIterator i = fileNode.begin(); i != fileNode.end(); i++)
 	{
 		float a;
@@ -62,12 +62,12 @@ int main(int argc, char** argv)
 	}
 	cout << "]" << endl;
 
-	//¶ÁÈ¡MatÀàĞÍÊı¾İ
+	//è¯»å–Matç±»å‹æ•°æ®
 	Mat matRead;
-	fread["mat="] >> matRead;
-	cout << "mat=" << mat << endl;
+	fread["mat"] >> matRead;
+	cout << "mat=" << matRead << endl;
 
-	//¶ÁÈ¡º¬ÓĞ¶à¸ö×Ó½ÚµãµÄ½ÚµãÊı¾İ£¬²»Ê¹ÓÃFileNodeºÍµü´úÆ÷½øĞĞ¶ÁÈ¡
+	//è¯»å–å«æœ‰å¤šä¸ªå­èŠ‚ç‚¹çš„èŠ‚ç‚¹æ•°æ®ï¼Œä¸ä½¿ç”¨FileNodeå’Œè¿­ä»£å™¨è¿›è¡Œè¯»å–
 	FileNode fileNode1 = fread["multi_nodes"];
 	int month = (int)fileNode1["month"];
 	int day = (int)fileNode1["day"];
@@ -82,7 +82,7 @@ int main(int argc, char** argv)
 	}
 	cout << "]" << endl;
 	
-	//¹Ø±ÕÎÄ¼ş
+	//å…³é—­æ–‡ä»¶
 	fread.release();
 	return 0;
 }
